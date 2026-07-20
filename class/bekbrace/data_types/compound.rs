@@ -30,5 +30,15 @@ fn main() {
     let mix = ("Math", 'M', numbers, false); // numbers is already an Array
     println!("mix: {:?}", mix);
 
-    // Slice String
+    // Slices: 
+    // Dynamically sized view into a contagious sequence of elements. In programming "Contagious"
+    // is a very well known terms when it comes to memory. For example,
+    // We have an array [1,2,3,4,5,6] so contagious means uninterrupted. Adjacent one another 1->2->3->4 and so on
+    // So when displaying something in a contagious sequence from like an array
+    // the memory doesn't have to jump between memories but rather going one next to two, element two,
+    // the third element, the fourth element, the fifth element and the sixth element, they are all
+    // next to each other. ANd this is a good things for memory allocation and memory efficieny. 
+
+    let my_slices: &[i32] = &[1,2,3,4,5,6,7,8,9];
+    println!("my slices: {:?}", my_slices);
 }
