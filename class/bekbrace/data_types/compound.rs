@@ -39,6 +39,12 @@ fn main() {
     // the third element, the fourth element, the fifth element and the sixth element, they are all
     // next to each other. ANd this is a good things for memory allocation and memory efficieny. 
 
-    let my_slices: &[i32] = &[1,2,3,4,5,6,7,8,9];
-    println!("my slices: {:?}", my_slices);
+    let number_slices: &[i32] = &[1,2,3,4,5,6,7,8,9];
+    println!("number slices: {:?}", number_slices);
+
+    let animal_slices: &[&str] = &["Lion", "Elephant", "Crocodile"];
+    println!("animal slices: {:?}", animal_slices);
+
+    let book_slices: &[&String] = &[&"Science".to_string(), &"Math".to_string(), &"English".to_string()];
+    println!("book slices: {:?}", book_slices);
 }
