@@ -1,5 +1,6 @@
 // Structs
 // Structs are used to name and package related values similar to tuples.
+// https://doc.rust-lang.org/book/ch05-01-defining-structs.html
 
 fn main() {
     // tuple
