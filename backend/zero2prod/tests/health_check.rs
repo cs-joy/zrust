@@ -3,7 +3,7 @@
 //
 // You can inspect what code gets generated using
 // `cargo expand --test health_check` (<- name f the test file)
-# [tokio::test]
+# [tokio::test]                     // macro!
 async fn health_check_works() {
     // Arrange
     // spawn_app().await.expect("Failed to spawn our app");
