@@ -1,0 +1,20 @@
+[package]
+name = "robust_integration_test"
+version = "0.1.0"
+authors = ["Zahangir <cs-joy.github.io>"]
+edition = "2024"
+
+[lib]
+name = "robust_integration_test" # by default is project name, however we can name it as our own
+path = "src/lib.rs"
+
+[[bin]]
+name = "robust_integration_test"
+path = "src/main.rs"
+
+[dev-dependencies]
+reqwest = "0.13.5"
+
+[dependencies]
+actix-web = "4.15.0"
+tokio = { version = "1.53.1", features = ["macros", "rt-multi-thread"]}
