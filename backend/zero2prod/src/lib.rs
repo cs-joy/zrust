@@ -3,10 +3,28 @@ use actix_web::{web, App, HttpResponse, HttpServer};
 use actix_web::dev::Server;
 use std::net::TcpListener;
 
+// 3.7.3.1
+#[derive(serde::Deserialize)]
+struct FormData {
+    email: String,
+    name: String
+}
+// 3.7.3.1
+
 // request handler
 async fn health_check() -> HttpResponse {
     HttpResponse::Ok().finish()
 }
+
+// // 3.7
+// We were returning `impl Responder` at the very beginning.
+// We are now spelling out the type explicitly given that we have
+// become more familiar with `actix_web`.
+// There is no performance difference! Just a stylistic choice! :)
+async fn subscribe(_form: web::Form<FormData>) -> HttpResponse {
+    HttpResponse::Ok().finish()
+}
+// // 3.7
 
 // Notice the different signature!
 // We return `Server` on the happy path and we dropped the `async` keyword
@@ -52,6 +70,7 @@ pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
         App::new()
             .route("/health_check", web::get().to(health_check))
+            .route("/subscriptions", web::post().to(subscribe)) // 3.7
     })
         .listen(listener)?
         .run();
