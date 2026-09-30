@@ -1,78 +1,95 @@
-/**
- * Trait can be implemented for any data type. In the example below, we define `Animal`, a group of methods. 
- * The `Animal` `trait` is then implemented for the `Sheep` data type, allowing the use of methods from `Animal` with a `Sheep`.
-*/
+// understanding
 
-struct Sheep {
-    naked: bool,
-    name: &'static str
+// user defined type
+struct UserData {
+    id: u8,
+    username: &'static str,
+    full_name: &'static str,
+    active: bool
 }
 
-trait Animal {
-    // Associated function signature; `Self` referes to the implementor type.
-    fn new(name: &'static str) -> Self;
+// trait
+trait User {
+    // Associated function signature; `Self` referes to the implementor type
+    fn new(id: u8, username: &'static str, full_name: &'static str) -> Self;
 
-    // Method signatures; these will return a string
-    fn name(&self) -> &'static str;
-    fn noise(&self) -> &'static str;
+    // Method signature;
+    fn user_id(&self) -> u8;
+    fn u_username(&self) -> &'static str;
+    fn user_full_name(&self) -> &'static str;
+    fn user_nationality(&self) -> &'static str;
 
-    // Trait can provide default method definitions.
-    fn talk(&self) {
-        println!("{} says {}", self.name(), self.noise());
+    // Default method definitions
+    fn profile(&self) {
+        println!("==============\n");
+        println!("Profile Information about {}", self.u_username());
+        println!("ID: {}\nName: {}\nNationality: {}", self.user_id(), self.user_full_name(), self.user_nationality());
     }
 }
 
-impl Sheep {
-    fn is_naked(&self) -> bool {
-        self.naked
+// implement `UserData` type
+impl UserData {
+    fn is_activate(&self) -> bool {
+        self.active
     }
 
-    fn shear(&mut self) {
-        if self.is_naked() {
-            // Implementor methods can be implementor's trait methods.
-            println!("{} is already naked...", self.name());
+    fn activating(&mut self) {
+        if self.is_activate() {
+            // Implementor methods can use the implementor's trait methods.
+            println!("{} is already activated!", self.u_username());
         } else {
-            println!("{} gets a haircut!", self.name);
-
-            self.naked = true;
+            println!("{} is still deactivated! activating your account now...", self.username);
+            self.active = true;
         }
     }
 }
 
-// Implement the `Animal` trait for `Sheep`.
-impl Animal for Sheep {
-    // `Self` is the implementor type: `Sheep`
-    fn new(name: &'static str) -> Sheep {
-        Sheep {name: name, naked: false}
+// implement `User` trat for `UserData`
+impl User for UserData {
+    fn new(id: u8, username: &'static str, full_name: &'static str) -> UserData {
+        UserData {id: id, username: username, full_name: full_name, active: false}
     }
 
-    // 
-    fn name(&self) -> &'static str {
-        self.name
-    }
-    
     //
-    fn noise(&self) -> &'static str {
-        if self.is_naked() {
-            "blaaaah?"
+    fn user_id(&self) -> u8 {
+        self.id
+    }
+
+    //
+    fn u_username(&self) -> &'static str {
+        self.username
+    }
+
+    //
+    fn user_full_name(&self) -> &'static str {
+        self.full_name
+    }
+
+    //
+    fn user_nationality(&self) -> &'static str {
+        if self.is_activate() {
+            "Congratulations! You are the first user in our platform, from BD."
         } else {
-            "blaaaah!"
+            "need to activate before set your nationality."
         }
     }
 
-    // Default trait methods can be overriden!
-    fn talk(&self) {
-        // For example, we can add some quiet contemplation.
-        println!("{} pauses briefly... {}", self.name, self.noise())
-    }
+    // Default trait method can be overriden.
+    // fn profile(&self) {
+    //     // For example, we can add some quiet contemplation.
+    //     println!("Hey {}, Welcome to Trait Exploration! Are you from {}?", self.full_name, self.user_nationality());
+    // }
 }
 
 fn main() {
-    // Type annotation is necessary in this case.
-    let mut dolly: Sheep = Animal::new("Dolly");
-    // TODO ^ Try removing the annotations.
+    // Type annotation is necessary in this case
+    let mut data = <UserData as User>::new(123, "zahangir", "Zahangir");
+    data.profile();
+    println!("activate?: {}", data.is_activate());
+    data.activating();
+    data.profile();
 
-    dolly.talk();
-    dolly.shear();
-    dolly.talk();
+    //
+    println!("username: {}", data.u_username());
+    println!("activate?: {}", data.is_activate());
 }
